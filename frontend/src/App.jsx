@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Bar from "./components/Bar";
 import StudentsCard from "./components/StudentsCard";
 import { apiGet } from "./utils/axios";
@@ -6,37 +6,75 @@ import "./App.css";
 
 function App() {
   const [students, setStudents] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [classes, setClasses] = useState([]);
+  const [loadingStudents, setLoadingStudents] = useState(true);
+  const [loadingClasses, setLoadingClasses] = useState(true);
   const [errors, setErrors] = useState([]);
   const [isButtonClicked, setIsButtonClicked] = useState(false);
 
-  const buttonClicked = useCallback(() => {
+  const buttonClicked = () => {
     setIsButtonClicked(!isButtonClicked);
+  };
+
+  useEffect(() => {
+    setLoadingStudents(true);
+    const getStudents = async () => {
+      try {
+        await apiGet("/students")
+          .then((res) => res.data)
+          .then((res) => setStudents(res));
+        setLoadingStudents(false);
+      } catch (error) {
+        setErrors((prevState) => [...prevState, error.message]);
+        setLoadingStudents(false);
+      }
+    };
+    getStudents();
   }, [isButtonClicked]);
 
   useEffect(() => {
-    setLoading(true);
-    const asyncFunc = async () => {
+    setLoadingClasses(true);
+    const getClasses = async () => {
       try {
-        const res = await apiGet("students");
-        setStudents(res.data);
-        setLoading(false);
+        await apiGet("/classes")
+          .then((res) => res.data)
+          .then((res) => setClasses(res));
+        setLoadingClasses(false);
       } catch (error) {
-        setErrors([error.message]);
-        setLoading(false);
+        setErrors((prevState) => [...prevState, error.message]);
+        setLoadingClasses(false);
       }
     };
-    asyncFunc();
-  }, [buttonClicked]);
+    getClasses();
+  }, [isButtonClicked]);
+
+  const classesOptions = classes.map((classObj) => {
+    return {
+      id: classObj._id,
+      value: classObj.className,
+      label: classObj.className,
+    };
+  });
 
   return (
     <div className="App">
-      <Bar buttonClicked={buttonClicked} />
-      {loading ? (
+      {loadingClasses || loadingStudents ? (
         <div>Loading...</div>
       ) : (
-        <StudentsCard students={students} buttonClicked={buttonClicked} />
+        <>
+          <Bar
+            classes={classes}
+            classesOptions={classesOptions}
+            buttonClicked={buttonClicked}
+          />
+          <StudentsCard
+            students={students}
+            classesOptions={classesOptions}
+            buttonClicked={buttonClicked}
+          />
+        </>
       )}
+
       {errors.length > 0 && (
         <div>
           <h1>Errors</h1>

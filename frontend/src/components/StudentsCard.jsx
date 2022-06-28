@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import DeleteButton from "./DeleteButton";
 import StudentForm from "./StudentForm";
 
-export default function StudentsCard({ students, buttonClicked }) {
+export default function StudentsCard({
+  students,
+  classesOptions,
+  buttonClicked,
+}) {
   const [isDeleting, setIsDeleting] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
 
@@ -24,7 +28,7 @@ export default function StudentsCard({ students, buttonClicked }) {
           <div>
             <h1>{`${student.firstName} ${student.lastName}`}</h1>
             <p>{student.email}</p>
-            <p>{`ID: ${student._id}`}</p>
+            <p>{`ID: ${student.studentID}`}</p>
           </div>
           <div>
             <button onClick={() => handleIsEditing()}>Edit</button>
@@ -32,17 +36,18 @@ export default function StudentsCard({ students, buttonClicked }) {
           </div>
           {isEditing && (
             <StudentForm
+              classesOptions={classesOptions}
               handleStudentFormClick={handleIsEditing}
               buttonClicked={buttonClicked}
-              student={student}
+              route={`/students/${student._id}`}
               axiosApi="put"
             />
           )}
           {isDeleting && (
             <DeleteButton
-              handleIsDeleting={handleIsDeleting}
-              student={student}
+              handleShow={handleIsDeleting}
               buttonClicked={buttonClicked}
+              route={`/students/${student._id}`}
             />
           )}
         </div>

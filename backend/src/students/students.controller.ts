@@ -1,4 +1,3 @@
-import { StudentService } from './shared/student.service';
 import {
   Body,
   Controller,
@@ -8,6 +7,7 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
+import { StudentService } from './shared/student.service';
 import { Student } from './shared/student';
 
 @Controller('students')

@@ -8,26 +8,32 @@ export class StudentService {
   constructor(
     @InjectModel('Student') private readonly studentModel: Model<Student>,
   ) {}
-  // students: Student[] = [
-  //   {
-  //     firstName: 'John',
-  //     lastName: 'Doe',
-  //     email: 'jhon@email.com',
-  //     class: ['Math', 'English'],
-  //     createdDate: new Date(),
-  //     updatedDate: new Date(),
-  //     deletedDate: new Date(),
-  //   },
-  //   {
-  //     firstName: 'Jane',
-  //     lastName: 'Doe',
-  //     email: 'jane@email.com',
-  //     class: ['Math', 'English'],
-  //     createdDate: new Date(),
-  //     updatedDate: new Date(),
-  //     deletedDate: new Date(),
-  //   },
-  // ];
+
+  async createDefaultStudents() {
+    const students = [
+      {
+        firstName: 'John',
+        lastName: 'Doe',
+        email: 'john@email.com',
+        studentID: 123456,
+        class: ['English', 'Math'],
+        createdDate: new Date(),
+        updatedDate: new Date(),
+        deletedDate: null,
+      },
+      {
+        firstName: 'Jane',
+        lastName: 'Doe',
+        email: 'jane@email.com',
+        studentID: 123457,
+        class: ['English'],
+        createdDate: new Date(),
+        updatedDate: new Date(),
+        deletedDate: null,
+      },
+    ];
+    await this.studentModel.create(students);
+  }
 
   async getAll() {
     // get all students

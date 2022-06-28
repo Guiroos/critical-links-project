@@ -36,6 +36,11 @@ export const StudentSchema = new mongoose.Schema({
     unique: true,
     lowercase: true,
   },
+  studentID: {
+    type: Number,
+    required: true,
+    unique: true,
+  },
   class: {
     type: [String],
     required: true,

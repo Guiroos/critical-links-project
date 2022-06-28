@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import Bar from "./components/Bar";
 import StudentsCard from "./components/StudentsCard";
 import { apiGet } from "./utils/axios";
-import "./App.css";
 
 function App() {
   const [students, setStudents] = useState([]);

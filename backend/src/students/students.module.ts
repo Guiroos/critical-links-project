@@ -12,4 +12,13 @@ import { StudentsController } from './students.controller';
   controllers: [StudentsController],
   providers: [StudentService],
 })
-export class StudentsModule {}
+export class StudentsModule {
+  constructor(private readonly studentService: StudentService) {}
+
+  async onModuleInit() {
+    const students = await this.studentService.getAll();
+    if (students.length === 0) {
+      await this.studentService.createDefaultStudents();
+    }
+  }
+}

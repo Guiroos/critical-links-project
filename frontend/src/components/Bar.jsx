@@ -3,7 +3,11 @@ import StudentForm from "./StudentForm";
 import ClassForm from "./ClassForm";
 import ManageClasses from "./ManageClasses";
 
-export default function Bar({ buttonClicked }) {
+export default function Bar({
+  classes,
+  classesOptions,
+  buttonClicked,
+}) {
   const [isStudentForm, setIsStudentForm] = useState(false);
   const [isClassForm, setIsClassForm] = useState(false);
   const [isManageClasses, setIsManageClasses] = useState(false);
@@ -39,10 +43,11 @@ export default function Bar({ buttonClicked }) {
           Create Class
         </button>
         <button onClick={() => setIsManageClasses(!isManageClasses)}>
-          Manage Class
+          Manage Classes
         </button>
         {isStudentForm && (
           <StudentForm
+            classesOptions={classesOptions}
             handleStudentFormClick={handleStudentFormClick}
             buttonClicked={buttonClicked}
             axiosApi="post"
@@ -52,10 +57,12 @@ export default function Bar({ buttonClicked }) {
           <ClassForm
             handleClassFormClick={handleClassFormClick}
             buttonClicked={buttonClicked}
+            axiosApi="post"
           />
         )}
         {isManageClasses && (
           <ManageClasses
+            classes={classes}
             handleManageClassesClick={handleManageClassesClick}
             buttonClicked={buttonClicked}
           />

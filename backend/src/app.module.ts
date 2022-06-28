@@ -7,6 +7,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { JwtModule } from '@nestjs/jwt';
 import { join } from 'path/posix';
+import { ClassesModule } from './classes/classes.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { join } from 'path/posix';
       rootPath: join(__dirname, '..', 'public'),
     }),
     StudentsModule,
+    ClassesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

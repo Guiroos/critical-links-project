@@ -4,10 +4,11 @@ import Select from "react-select";
 import { apiPostBody, apiPut } from "../utils/axios";
 import { EMAIL_PATTERN, STUDENT_ID_PATTERN } from "../utils/constants";
 
-function StudentForm({
+export default function StudentForm({
+  classesOptions,
   handleStudentFormClick,
   buttonClicked,
-  student,
+  route,
   axiosApi,
 }) {
   const {
@@ -26,12 +27,6 @@ function StudentForm({
     },
   });
 
-  const options = [
-    { value: "English", label: "English" },
-    { value: "Math", label: "Math" },
-    { value: "Science", label: "Science" },
-  ];
-
   const handleClassChange = (selectedClass) => {
     const arrayOfClasses = selectedClass.map((classObj) => classObj.value);
     setValue("class", arrayOfClasses);
@@ -41,17 +36,17 @@ function StudentForm({
     if (axiosApi === "post") {
       try {
         apiPostBody("/students", data);
-        handleStudentFormClick();
         buttonClicked();
+        handleStudentFormClick();
       } catch (error) {
         console.log(error);
       }
     }
     if (axiosApi === "put") {
       try {
-        apiPut(`/students/${student._id}`, data);
-        handleStudentFormClick();
+        apiPut(route, data);
         buttonClicked();
+        handleStudentFormClick();
       } catch (error) {
         console.log(error);
       }
@@ -133,7 +128,7 @@ function StudentForm({
 
         <div>
           <Select
-            options={options}
+            options={classesOptions}
             isMulti
             id="class"
             placeholder="Select classes..."
@@ -155,5 +150,3 @@ function StudentForm({
     </div>
   );
 }
-
-export default StudentForm;

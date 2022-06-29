@@ -50,19 +50,39 @@ export default function Bar({ classes, classesOptions, buttonClicked }) {
           func={handleManageClassesClick}
         />
         {isStudentForm && (
-          <StudentForm
-            classesOptions={classesOptions}
-            handleStudentFormClick={handleStudentFormClick}
-            buttonClicked={buttonClicked}
-            axiosApi="post"
-          />
+          <div className="absolute top-0 left-0 py-4 px-8 w-full h-screen flex flex-col justify-center items-center">
+            <button
+              type="button"
+              tabIndex={-1}
+              onClick={handleStudentFormClick}
+              className="fixed inset-0 w-screen h-screen cursor-default"
+            />
+            <div className="border px-5 pb-4 shadow-lg z-10">
+              <StudentForm
+                classesOptions={classesOptions}
+                handleStudentFormClick={handleStudentFormClick}
+                buttonClicked={buttonClicked}
+                axiosApi="post"
+              />
+            </div>
+          </div>
         )}
         {isClassForm && (
-          <ClassForm
-            handleClassFormClick={handleClassFormClick}
-            buttonClicked={buttonClicked}
-            axiosApi="post"
-          />
+          <div className="absolute top-0 left-0 py-4 px-8 w-full h-screen flex flex-col justify-center items-center">
+            <button
+              type="button"
+              tabIndex={-1}
+              onClick={handleClassFormClick}
+              className="fixed inset-0 w-screen h-screen cursor-default"
+            />
+            <div className="border px-5 pb-4 shadow-lg z-10">
+              <ClassForm
+                handleClassFormClick={handleClassFormClick}
+                buttonClicked={buttonClicked}
+                axiosApi="post"
+              />
+            </div>
+          </div>
         )}
         {isManageClasses && (
           <ManageClasses

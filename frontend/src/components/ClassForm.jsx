@@ -1,8 +1,10 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { apiPostBody, apiPut } from "../utils/axios";
+import OnClickButton from "./OnClickButton";
 
 export default function ClassForm({
+  handleClassFormClick,
   handleIsEditing,
   buttonClicked,
   route,
@@ -43,12 +45,14 @@ export default function ClassForm({
   };
 
   return (
-    <div>
+    <div className="mt-4">
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
+        <p className="mb-2 text-lg">{axiosApi === "post" ? "Create class" : "Edit class"}</p>
           <input
             id="className"
             placeholder="Class name"
+            className="border rounded w-full py-2 px-3 text-gray-700 leading-tight"
             {...register("className", {
               required: true,
               minLength: {
@@ -67,6 +71,7 @@ export default function ClassForm({
             type="number"
             id="year"
             placeholder="Year"
+            className="border rounded w-full py-2 px-3 text-gray-700 leading-tight"
             {...register("year", {
               required: true,
               minLength: {
@@ -78,13 +83,17 @@ export default function ClassForm({
           {errors.year && <p id="year-error">{errors.year.message}</p>}
         </div>
 
-        <div>
-          <button type="reset" onClick={() => handleIsEditing()}>
-            Cancel
-          </button>
-          <button type="submit" disabled={!isValid}>
-            {axiosApi === "post" ? "Create" : "Update"}
-          </button>
+        <div className="flex justify-end gap-4 mt-4">
+          <OnClickButton
+            type="reset"
+            content={"Cancel"}
+            func={handleClassFormClick}
+          />
+          <OnClickButton
+            type="submit"
+            content={axiosApi === "post" ? "Create" : "Update"}
+            disabled={!isValid}
+          />
         </div>
       </form>
     </div>

@@ -56,7 +56,7 @@ function App() {
   });
 
   return (
-    <div className="App">
+    <div className="">
       {loadingClasses || loadingStudents ? (
         <div>Loading...</div>
       ) : (

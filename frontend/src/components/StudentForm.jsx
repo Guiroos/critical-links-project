@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import Select from "react-select";
 import { apiPostBody, apiPut } from "../utils/axios";
 import { EMAIL_PATTERN, STUDENT_ID_PATTERN } from "../utils/constants";
+import OnClickButton from "./OnClickButton";
 
 export default function StudentForm({
   classesOptions,
@@ -54,12 +55,14 @@ export default function StudentForm({
   };
 
   return (
-    <div>
+    <div className="mt-4">
       <form onSubmit={handleSubmit(onSubmit)}>
+        <p className="mb-2 text-lg">{axiosApi === "post" ? "Create Student" : "Edit student"}</p>
         <div>
           <input
             id="firstName"
             placeholder="First name"
+            className="border rounded w-full py-2 px-3 text-gray-700 leading-tight"
             {...register("firstName", {
               required: true,
               minLength: {
@@ -77,6 +80,7 @@ export default function StudentForm({
           <input
             id="lastName"
             placeholder="Last name"
+            className="border rounded w-full py-2 px-3 text-gray-700 leading-tight"
             {...register("lastName", {
               required: true,
               minLength: {
@@ -94,6 +98,7 @@ export default function StudentForm({
           <input
             id="email"
             placeholder="student@site.com.br"
+            className="border rounded w-full py-2 px-3 text-gray-700 leading-tight"
             {...register("email", {
               required: true,
               pattern: {
@@ -109,6 +114,7 @@ export default function StudentForm({
           <input
             id="studentID"
             placeholder="Student ID - 000000"
+            className="border rounded w-full py-2 px-3 text-gray-700 leading-tight"
             {...register("studentID", {
               required: true,
               pattern: {
@@ -138,13 +144,17 @@ export default function StudentForm({
           {errors.class && <p id="class-error">{errors.class.message}</p>}
         </div>
 
-        <div>
-          <button type="reset" onClick={() => handleStudentFormClick()}>
-            Cancel
-          </button>
-          <button type="submit" disabled={!isValid}>
-            {axiosApi === "post" ? "Create" : "Update"}
-          </button>
+        <div className="flex justify-end gap-4 mt-4">
+          <OnClickButton
+            type="reset"
+            func={handleStudentFormClick}
+            content={"Cancel"}
+          />
+          <OnClickButton
+            type="submit"
+            disabled={!isValid}
+            content={axiosApi === "post" ? "Create" : "Update"}
+          />
         </div>
       </form>
     </div>

@@ -45,7 +45,7 @@ export default function ClassForm({
   };
 
   return (
-    <div className="mt-4">
+    <div id="class-form" className="mt-4">
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
         <p className="mb-2 text-lg">{axiosApi === "post" ? "Create class" : "Edit class"}</p>
@@ -85,11 +85,13 @@ export default function ClassForm({
 
         <div className="flex justify-end gap-4 mt-4">
           <OnClickButton
+            id="class-form-cancel-button"
             type="reset"
             content={"Cancel"}
             func={handleClassFormClick}
           />
           <OnClickButton
+            id="class-form-create-button"
             type="submit"
             content={axiosApi === "post" ? "Create" : "Update"}
             disabled={!isValid}

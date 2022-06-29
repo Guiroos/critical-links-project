@@ -19,9 +19,9 @@ export default function ManageClasses({ classes, buttonClicked }) {
   };
 
   return (
-    <div className="text-xl">
+    <div id="manage-classes" className="text-xl">
       <p className="mb-2">Manage Classes</p>
-      <div className="">
+      <div id="manage-classes-class-list" className="">
         {classes.map((classObj) => (
           <div
             key={classObj._id}

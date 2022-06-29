@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import ClassForm from "./ClassForm";
 import DeleteButton from "./DeleteButton";
+import OnClickButton from "./OnClickButton";
+import { FaPen, FaTrash } from "react-icons/fa";
 
 export default function ManageClasses({ classes, buttonClicked }) {
   const [isDeleting, setIsDeleting] = useState(false);
@@ -17,57 +19,53 @@ export default function ManageClasses({ classes, buttonClicked }) {
   };
 
   return (
-    <div>
-      <h1>Manage Classes</h1>
-      <div>
-        {classes.map((classObj, index) => (
-          <div key={index}>
-            <div>{classObj.className}</div>
-            <div>
-              <button onClick={() => handleIsEditing()}>Edit</button>
-              <button onClick={() => handleIsDeleting()}>Delete</button>
+    <div className="text-xl">
+      <p className="mb-2">Manage Classes</p>
+      <div className="">
+        {classes.map((classObj) => (
+          <div
+            key={classObj._id}
+            className="flex flex-col justify-center odd:bg-white even:bg-slate-50 border-[1px] shadow-lg"
+          >
+            <div className="flex justify-between items-center p-2">
+              <p>{classObj.className}</p>
+              <div className="flex gap-2">
+                <OnClickButton
+                  content={<FaPen size={16} />}
+                  icon="pencil"
+                  func={handleIsEditing}
+                />
+                <OnClickButton
+                  content={<FaTrash size={16} />}
+                  icon="trash"
+                  func={handleIsDeleting}
+                />
+              </div>
             </div>
-            {isEditing && (
-              <ClassForm
-                handleIsEditing={handleIsEditing}
-                buttonClicked={buttonClicked}
-                route={`/classes/${classObj._id}`}
-                axiosApi="put"
-              />
-            )}
-            {isDeleting && (
-              <DeleteButton
-                route={`/classes/${classObj._id}`}
-                handleShow={handleIsDeleting}
-                buttonClicked={buttonClicked}
-              />
-            )}
+            <div>
+              {isEditing && (
+                <div className="px-4 pb-4">
+                  <ClassForm
+                    handleClassFormClick={handleIsEditing}
+                    buttonClicked={buttonClicked}
+                    route={`/classes/${classObj._id}`}
+                    axiosApi="put"
+                  />
+                </div>
+              )}
+              {isDeleting && (
+                <div className="px-4 pb-4">
+                  <DeleteButton
+                    route={`/classes/${classObj._id}`}
+                    handleShow={handleIsDeleting}
+                    buttonClicked={buttonClicked}
+                  />
+                </div>
+              )}
+            </div>
           </div>
         ))}
       </div>
     </div>
   );
 }
-
-//       <ul>
-//         {classes.map((classItem) => (
-//           <li key={classItem._id}>
-//             <div>{classItem.className}</div>
-//             <div>
-//               <button onClick={() => handleIsEditing()}>Edit</button>
-//               <button onClick={() => handleIsDeleting()}>Delete</button>
-//             </div>
-//             {isDeleting && (
-//               <DeleteButton
-//                 class={classItem}
-//                 route={`classes/${classItem._id}`}
-//                 handleIsDeleting={handleIsDeleting}
-//                 buttonClicked={buttonClicked}
-//               />
-//             )}
-//           </li>
-//         ))}
-//       </ul>
-//     </div>
-//   );
-// }

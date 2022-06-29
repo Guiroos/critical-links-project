@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+import { FaPen, FaTrash } from "react-icons/fa";
 import DeleteButton from "./DeleteButton";
+import OnClickButton from "./OnClickButton";
 import StudentForm from "./StudentForm";
 
 export default function StudentsCard({
@@ -21,35 +23,56 @@ export default function StudentsCard({
   };
 
   return (
-    <div>
+    <div className="grid desktop:grid-cols-3 iPadPro11:grid-cols-2 mx-8 gap-8">
       {students.map((student) => (
-        <div key={student._id}>
-          <div></div>
-          <div>
-            <h1>{`${student.firstName} ${student.lastName}`}</h1>
-            <p>{student.email}</p>
-            <p>{`ID: ${student.studentID}`}</p>
+        <div
+          key={student._id}
+          className="flex flex-col rounded-[30px] shadow-xl border border-gray-100 p-5"
+        >
+          <div className="flex justify-between ">
+            <div className="hidden desktop:inline-flex h-24 overflow-hidden">
+              <img
+                className="bg-white h-full w-full object-cover rounded-full"
+                src={`https://avatars.dicebear.com/api/big-smile/${student._id}.svg`}
+                alt="Avatar"
+              />
+            </div>
+            <div className="flex flex-col justify-center text-lg">
+              <p className=" font-bold">{`${student.firstName} ${student.lastName}`}</p>
+              <p className="">{student.email}</p>
+              <p className="text-[#9A9A9A]">{`ID: ${student.studentID}`}</p>
+            </div>
+            <div className="flex gap-5 h-full">
+              <OnClickButton
+                content={<FaPen size={32} />}
+                icon="pencil"
+                func={handleIsEditing}
+              />
+              <OnClickButton
+                content={<FaTrash size={32} />}
+                icon="trash"
+                func={handleIsDeleting}
+              />
+            </div>
           </div>
           <div>
-            <button onClick={() => handleIsEditing()}>Edit</button>
-            <button onClick={() => handleIsDeleting()}>Delete</button>
+            {isEditing && (
+              <StudentForm
+                classesOptions={classesOptions}
+                handleStudentFormClick={handleIsEditing}
+                buttonClicked={buttonClicked}
+                route={`/students/${student._id}`}
+                axiosApi="put"
+              />
+            )}
+            {isDeleting && (
+              <DeleteButton
+                handleShow={handleIsDeleting}
+                buttonClicked={buttonClicked}
+                route={`/students/${student._id}`}
+              />
+            )}
           </div>
-          {isEditing && (
-            <StudentForm
-              classesOptions={classesOptions}
-              handleStudentFormClick={handleIsEditing}
-              buttonClicked={buttonClicked}
-              route={`/students/${student._id}`}
-              axiosApi="put"
-            />
-          )}
-          {isDeleting && (
-            <DeleteButton
-              handleShow={handleIsDeleting}
-              buttonClicked={buttonClicked}
-              route={`/students/${student._id}`}
-            />
-          )}
         </div>
       ))}
     </div>

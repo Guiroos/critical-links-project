@@ -23,9 +23,13 @@ export default function StudentsCard({
   };
 
   return (
-    <div className="grid desktop:grid-cols-3 iPadPro11:grid-cols-2 mx-8 gap-8">
-      {students.map((student) => (
+    <div
+      className="grid desktop:grid-cols-3 iPadPro11:grid-cols-2 mx-8 gap-8"
+      id="students-card"
+    >
+      {students.map((student, index) => (
         <div
+          id={`student-card-${index}`}
           key={student._id}
           className="flex flex-col rounded-[30px] shadow-xl border border-gray-100 p-5"
         >

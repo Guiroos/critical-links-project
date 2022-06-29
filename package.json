@@ -1,0 +1,28 @@
+{
+  "name": "critical-links-project-frontend",
+  "version": "1.0.0",
+  "description": "This is a project that integrates the frontend with backend, producing a management of students and classes of a school.",
+  "license": "ISC",
+  "author": {
+    "name": "Guilherme Roos",
+    "email": "guilherme.roosr@gmail.com",
+    "url": "https://www.linkedin.com/in/guilhermeroos/"
+  },
+  "scripts": {
+    "install": "sh ./scripts/install.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Guiroos/critical-links-project"
+  },
+  "bugs": {
+    "url": "https://github.com/Guiroos/critical-links-project/issues"
+  },
+  "homepage": "https://github.com/Guiroos/critical-links-project#readme",
+  "keywords": [
+    "reactjs",
+    "nestjs",
+    "cypress",
+    "management"
+  ]
+}

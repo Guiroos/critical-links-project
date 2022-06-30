@@ -4,22 +4,22 @@ import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
-import { ServeStaticModule } from '@nestjs/serve-static';
+/* import { ServeStaticModule } from '@nestjs/serve-static';
 import { JwtModule } from '@nestjs/jwt';
-import { join } from 'path/posix';
+import { join } from 'path/posix'; */
 import { ClassesModule } from './classes/classes.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
     MongooseModule.forRoot('mongodb://localhost:27017/critical-link-project'),
-    JwtModule.register({
+    /*     JwtModule.register({
       secret: process.env.JWT_SECRET,
       signOptions: { expiresIn: '2h' },
     }),
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'public'),
-    }),
+    }), */
     StudentsModule,
     ClassesModule,
   ],

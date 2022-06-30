@@ -55,7 +55,20 @@ Iniciar o aplicativo React, disponível em [WEB](http://localhost:3000).
   npm run start
 ```
 
+## Rodando testes
 
+ ### Cypress
+
+ Execute o comando dentro da pasta frontend.
+
+ ```bash 
+  cd frontend
+  npm run cypress:open
+ ```
+ 
+ Caso precise de ajuda para navegar no Cypress, entre na documentação do mesmo [AQUI](https://www.cypress.io/)
+ 
+ 
 ## Stacks utilizadas
 
 **Front-end:** ReactJS, TailwindCSS.
@@ -116,7 +129,7 @@ Os estudantes possuem as seguintes propriedades:
 | `deletedDate` | `Date`
 
 
-Os livros possuem as seguintes propriedades:
+As classes possuem as seguintes propriedades:
 
 | Propriedades   | Tipo       
 | :---------- | :--------- 
